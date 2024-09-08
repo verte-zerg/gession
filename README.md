@@ -2,6 +2,14 @@
 
 Dependency free Tmux Session Manager, just one binary and you are good to go.
 
+## Screenshot
+
+![Screenshot](screenshot.jpg)
+
+## Demo
+
+![Demo](demo.gif)
+
 ## Features
 
 - **Extremely Fast**: Efficiently written in Go, so it's blazing fast.
