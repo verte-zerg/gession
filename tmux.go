@@ -14,7 +14,7 @@ type Session struct {
 }
 
 func getTmuxSessionList() ([]Session, error) {
-	cmd := exec.Command("tmux", "ls", "-F", "#{session_last_attached} #{?session_attached,*, } #{session_name}")
+	cmd := exec.Command("tmux", "ls", "-F", "#{?session_last_attached,#{session_last_attached},0000000000} #{?session_attached,*, } #{session_name}")
 	stdout, err := cmd.Output()
 
 	if err != nil {
