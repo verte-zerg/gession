@@ -122,8 +122,8 @@ func (tui *TUI) handleCommand(mode string, selectedSession *Session, query strin
 		if query != "" {
 			createTmuxSession(query, tui.directory)
 			switchTmuxSession(query)
+			os.Exit(0)
 		}
-		os.Exit(0)
 	default:
 		fmt.Println("Unknown command")
 	}
