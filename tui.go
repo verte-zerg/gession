@@ -26,14 +26,16 @@ type TUI struct {
 	directory string
 	selected  int
 	input     []rune
+	mode      Mode
 }
 
-func NewTUI(height int, sessions []Session, prompt string, directory string) *TUI {
+func NewTUI(height int, sessions []Session, mode Mode, prompt string, directory string) *TUI {
 	return &TUI{
 		height:    height,
 		sessions:  sessions,
 		prompt:    prompt,
 		directory: directory,
+		mode:      mode,
 	}
 }
 
@@ -52,7 +54,12 @@ func (tui *TUI) Render(query string) {
 func (tui *TUI) Iterate(ke KeyEvent) {
 	tui.handleKey(ke)
 	inputString := string(tui.input)
-	mode, query := parseInput(inputString)
+
+	command, query := parseInput(inputString)
+	if tui.mode == ModePrime {
+		command = ""
+		query = inputString
+	}
 
 	filteredSessions := fuzzyFilterSessions(tui.sessions, query)
 	tui.adjustSelected(len(filteredSessions))
@@ -63,7 +70,7 @@ func (tui *TUI) Iterate(ke KeyEvent) {
 		if len(filteredSessions) != 0 {
 			selectedSession = &filteredSessions[tui.selected]
 		}
-		tui.handleCommand(mode, selectedSession, query)
+		tui.handleCommand(command, selectedSession, query)
 		tui.Render(query)
 	}
 }
@@ -85,24 +92,24 @@ func (tui *TUI) adjustSelected(sessionsCount int) {
 	}
 }
 
-func (tui *TUI) handleCommand(mode string, selectedSession *Session, query string) {
-	if mode == "" || mode == ":rm" || mode == ":new" {
+func (tui *TUI) handleCommand(command string, selectedSession *Session, query string) {
+	if command == "" || command == ":rm" || command == ":new" {
 		tmux := os.Getenv("TMUX")
 		if tmux == "" {
 			os.Exit(1)
 		}
 	}
 
-	switch mode {
+	switch command {
 	case "":
 		sessionName := query
+		directory := tui.directory
 		if selectedSession != nil {
 			sessionName = selectedSession.Name
+			directory = selectedSession.Directory
 		}
 
-		if selectedSession == nil {
-			createTmuxSession(sessionName, tui.directory)
-		}
+		createTmuxSession(sessionName, directory)
 		switchTmuxSession(sessionName)
 		os.Exit(0)
 	case ":rm":
@@ -120,7 +127,10 @@ func (tui *TUI) handleCommand(mode string, selectedSession *Session, query strin
 		}
 	case ":new":
 		if query != "" {
-			createTmuxSession(query, tui.directory)
+			err := createTmuxSession(query, tui.directory)
+			if err != nil {
+				os.Exit(1)
+			}
 			switchTmuxSession(query)
 			os.Exit(0)
 		}
@@ -164,6 +174,9 @@ func parseInput(input string) (string, string) {
 }
 
 func generateEmptyLines(count int) string {
+	if count <= 0 {
+		return ""
+	}
 	return strings.Repeat(CLEAR_LINE+"\r\n", count)
 }
 

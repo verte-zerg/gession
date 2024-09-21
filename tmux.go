@@ -11,9 +11,10 @@ import (
 type Session struct {
 	Name       string
 	IsAttached bool
+	Directory  string
 }
 
-func getTmuxSessionList() ([]Session, error) {
+func getTmuxSessionList(defaultDirectory string) ([]Session, error) {
 	cmd := exec.Command("tmux", "ls", "-F", "#{?session_last_attached,#{session_last_attached},0000000000} #{?session_attached,*, } #{session_name}")
 	stdout, err := cmd.Output()
 
@@ -39,7 +40,7 @@ func getTmuxSessionList() ([]Session, error) {
 		if line[11] == '*' {
 			sessionsAttached = append(sessionsAttached, Session{Name: name, IsAttached: true})
 		} else {
-			sessions = append(sessions, Session{Name: name, IsAttached: false})
+			sessions = append(sessions, Session{Name: name, IsAttached: false, Directory: defaultDirectory})
 		}
 	}
 
@@ -47,13 +48,13 @@ func getTmuxSessionList() ([]Session, error) {
 	return sessions, nil
 }
 
-func createTmuxSession(name string, directory string) {
+func createTmuxSession(name string, directory string) error {
 	tmux := exec.Command("tmux", "new-session", "-d", "-s", name, "-c", directory)
 	err := tmux.Run()
 	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		return err
 	}
+	return nil
 }
 
 func switchTmuxSession(name string) {

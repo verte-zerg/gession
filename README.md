@@ -30,31 +30,45 @@ make build
 
 ## Usage
 
+### Normal Mode
+
 Run it with the following command:
 
 ```sh
 ./gession
 ```
 
-You can also specify a custom prompt and a starting directory:
+You can also specify a custom prompt and a starting directory or use the `-prime` mode:
 
 ```sh
-./gession -p "Your Prompt > " -d /path/to/directory
+./gession -i "Your Prompt > " -d /path/to/directory
 ```
 
-Default values are:
+### Default values
 - **Prompt**: `input > `
 - **Directory**: `$HOME`
 
-## Configuration
+### Prime Mode
+
+The `-prime` mode allows you to list directories instead of tmux sessions. This is useful for quickly navigating to project directories.
+
+To use the `-prime` mode, specify the `-prime` flag and provide one or more directories to search for sessions using the `-pd` flag:
+
+```sh
+./gession -prime -pd /path/to/dir1 -pd /path/to/dir2
+```
+
+### Configuration
 
 Add the following line to your `.tmux.conf` file:
 ```sh
 # Basic
 bind f run-shell "tmux neww path/to/gession"
+bind o run-shell "tmux neww path/to/gession -prime -pd /path/to/projects"
 
 # Advanced
-bind f run-shell "tmux neww path/to/gession -p 'Your Prompt > ' -d /path/to/directory"
+bind f run-shell "tmux neww path/to/gession -i 'Your Prompt > ' -d /path/to/directory"
+bind o run-shell "tmux neww path/to/gession -i 'Your Prime Prompt >' -prime -pd /path/to/projects -pd /path/to/other/projects"
 ```
 
 To avoid the need to specify the full path to the binary, you can move it to a directory in your `$PATH`.
