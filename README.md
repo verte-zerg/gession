@@ -1,6 +1,6 @@
 # Gession
 
-Dependency free Tmux Session Manager, just one binary and you are good to go.
+Lightweight Tmux Session Manager, just one binary and you are good to go.
 
 ## Screenshot
 
@@ -13,10 +13,12 @@ Dependency free Tmux Session Manager, just one binary and you are good to go.
 ## Features
 
 - **Extremely Fast**: Efficiently written in Go, so it's blazing fast.
-- **Dependency-free**: Almost no dependencies required to run it. Only one is required, but it's supported by Go team `golang.org/x/term`.
+- **Lightweigh**: The tool isn't bloated with big libraries or dependencies.
 - **Interactive TUI**: A TUI allows you to view, create, switch, and kill tmux sessions.
 - **Fuzzy Search**: Quickly find and filter sessions using fuzzy search.
-- **Customizable**: Set your own prompts or starting directory.
+- **Two modes**: Two modes supported:
+  * Normal: allows you to manage existing tmux sessions.
+  * Prime: allows to create Tmux session based on directories.
 
 ## Installation
 
@@ -67,8 +69,8 @@ bind f run-shell "tmux neww path/to/gession"
 bind o run-shell "tmux neww path/to/gession -prime -pd /path/to/projects"
 
 # Advanced
-bind f run-shell "tmux neww path/to/gession -i 'Your Prompt > ' -d /path/to/directory"
-bind o run-shell "tmux neww path/to/gession -i 'Your Prime Prompt >' -prime -pd /path/to/projects -pd /path/to/other/projects"
+bind f run-shell "tmux neww path/to/gession -d /path/to/directory"
+bind o run-shell "tmux neww path/to/gession -prime -pd /path/to/projects -pd /path/to/other/projects"
 ```
 
 To avoid the need to specify the full path to the binary, you can move it to a directory in your `$PATH`.
