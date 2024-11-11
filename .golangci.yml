@@ -1,0 +1,41 @@
+linters:
+  enable-all: true
+  disable:
+    - exhaustruct
+    - ireturn
+    - gofumpt
+    - depguard
+    - gci
+    - paralleltest
+    - lll
+    - gosec
+    - nonamedreturns
+    - gochecknoglobals
+    # DEPRECATED
+    - exhaustivestruct
+    - gomnd
+    - interfacer
+    - varcheck
+    - ifshort
+    - maligned
+    - scopelint
+    - golint
+    - deadcode
+    - nosnakecase
+    - structcheck
+
+linters-settings:
+  varnamelen:
+    max-distance: 20
+
+  funlen:
+    lines: 100
+    statements: 60
+    ignore-comments: true
+
+  cyclop:
+    max-complexity: 12
+    skip-tests: true
+
+  exhaustive:
+    default-signifies-exhaustive: true
