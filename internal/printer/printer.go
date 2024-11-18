@@ -253,9 +253,9 @@ func (p Printer) generateSessionRepresentation(
 
 	switch {
 	case session.IsUnwrapped && !p.prime:
-		unwrapChar = "+ "
-	case !session.IsUnwrapped && !p.prime:
 		unwrapChar = "- "
+	case !session.IsUnwrapped && !p.prime:
+		unwrapChar = "+ "
 	}
 
 	if isSelected {
