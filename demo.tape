@@ -16,7 +16,6 @@ Enter
 Type "tmux -L gession new -s demo-session"
 Enter
 Sleep 1s
-Env fish_autosuggestion_enabled "0"
 Type "# Let's create some new sessions"
 Enter
 Sleep 0.5s

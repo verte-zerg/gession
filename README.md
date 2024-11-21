@@ -9,7 +9,7 @@ Lightweight Tmux Session Manager, just one binary and you are good to go.
 ## Demo
 
 <picture>
-  <img alt="Demo" src="https://vhs.charm.sh/vhs-1SWBRCbGhHJ7OmZbWYg4jq.gif">
+  <img alt="Demo" src="https://vhs.charm.sh/vhs-5mSTeEgUelbyY9JlvFnfqt.gif">
 </picture>
 
 ## Features
