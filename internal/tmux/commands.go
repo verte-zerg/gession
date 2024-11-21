@@ -2,8 +2,6 @@ package tmux
 
 import (
 	"github.com/verte-zerg/gession/internal/session"
-	"github.com/verte-zerg/gession/pkg/assert"
-	"strings"
 )
 
 type Command interface {
@@ -46,24 +44,4 @@ func (t *tmuxCommandListTree) SetResult(result string) {
 	if err != nil {
 		panic(err)
 	}
-}
-
-// tmuxCommandCurrentWindow is a command to get the current session and window ID.
-type tmuxCommandCurrentWindow struct {
-	SessionID string
-	WindowID  string
-}
-
-func (t tmuxCommandCurrentWindow) GetCommand(escaping bool) string {
-	if escaping {
-		return "display-message -p -F \"#{session_id}.#{window_id}\""
-	}
-
-	return "display-message -p -F #{session_id}.#{window_id}"
-}
-
-func (t *tmuxCommandCurrentWindow) SetResult(result string) {
-	ids := strings.Split(result[:len(result)-1], ".")
-	assert.Assert(len(ids) == 2, "Invalid format of fetched session and window ID") //nolint:mnd
-	t.SessionID, t.WindowID = ids[0], ids[1]
 }

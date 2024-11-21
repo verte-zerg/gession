@@ -133,10 +133,6 @@ func (tui *TUI) eventReciever() {
 			eventPane, ok := inputEvent.Data.(event.CapturedPane)
 			assert.Assert(ok, "Event data is not a EventCapturedPane")
 			tui.handleCapturedPane(eventPane.PaneID, eventPane.Snapshot)
-		case event.TypeFetchedCurrentWindow:
-			eventWindow, ok := inputEvent.Data.(event.FetchedCurrentWindow)
-			assert.Assert(ok, "Event data is not a EventFetchedCurrentWindow")
-			tui.handleFetchedCurrentWindow(eventWindow.SessionID, eventWindow.WindowID)
 		default:
 			assert.Fatal("Unknown event type")
 		}

@@ -16,8 +16,6 @@ func ConvertEventToCommand(e event.Event) Command {
 		}
 	case event.TypeListTree:
 		return &tmuxCommandListTree{}
-	case event.TypeFetchCurrentWindow:
-		return &tmuxCommandCurrentWindow{}
 	default:
 		assert.Fatal("Unknown event type")
 	}
@@ -41,16 +39,6 @@ func ConvertCommandToEvent(command Command) event.Event {
 			Type: event.TypeListedTree,
 			Data: event.ListedTree{
 				Sessions: command.Sessions,
-			},
-		}
-	}
-
-	if command, ok := command.(*tmuxCommandCurrentWindow); ok {
-		return event.Event{
-			Type: event.TypeFetchedCurrentWindow,
-			Data: event.FetchedCurrentWindow{
-				SessionID: command.SessionID,
-				WindowID:  command.WindowID,
 			},
 		}
 	}

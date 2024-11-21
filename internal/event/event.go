@@ -6,15 +6,13 @@ import (
 )
 
 const (
-	TypeCapturePane          Type = Type("CapturePane")
-	TypeCapturedPane         Type = Type("CapturedPane")
-	TypeFetchCurrentWindow   Type = Type("FetchCurrentWindow")
-	TypeFetchedCurrentWindow Type = Type("FetchedCurrentWindow")
-	TypeListTree             Type = Type("ListTree")
-	TypeListedTree           Type = Type("ListedTree")
-	TypeListFolders          Type = Type("ListFolders")
-	TypeListedFolders        Type = Type("ListedFolders")
-	TypeKeyPressed           Type = Type("KeyPressed")
+	TypeCapturePane   Type = Type("CapturePane")
+	TypeCapturedPane  Type = Type("CapturedPane")
+	TypeListTree      Type = Type("ListTree")
+	TypeListedTree    Type = Type("ListedTree")
+	TypeListFolders   Type = Type("ListFolders")
+	TypeListedFolders Type = Type("ListedFolders")
+	TypeKeyPressed    Type = Type("KeyPressed")
 )
 
 type Event struct {
@@ -29,13 +27,6 @@ type CapturePane struct {
 type CapturedPane struct {
 	PaneID   string
 	Snapshot string
-}
-
-type FetchCurrentWindow struct{}
-
-type FetchedCurrentWindow struct {
-	SessionID string
-	WindowID  string
 }
 
 type ListedTree struct {

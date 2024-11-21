@@ -125,21 +125,3 @@ func (tui *TUI) handleCapturedPane(paneID, snapshot string) {
 		}
 	}
 }
-
-func (tui *TUI) handleFetchedCurrentWindow(sessionID, windowID string) {
-	logger.Info("current window", slog.String("sessionID", sessionID), slog.String("windowID", windowID))
-	s := tui.sessionIDToSession[sessionID]
-	windows := make([]session.Window, 0)
-
-	for _, window := range s.Windows {
-		if window.ID != windowID {
-			windows = append(windows, window)
-		}
-	}
-
-	s.Windows = windows
-
-	logger.Info("searching entities", slog.String("input", ""))
-	tui.vTree.SearchEntities("", tui.sessions, tui.selectedIdx, tui.unwrappedSession)
-	tui.Render()
-}

@@ -87,12 +87,10 @@ func initEventSystem(tuiCP event.ConsumerProducer, tmuxCP event.ConsumerProducer
 		event.TypeCapturedPane,
 		event.TypeListedTree,
 		event.TypeListedFolders,
-		event.TypeFetchedCurrentWindow,
 	}, tuiCP)
 	eventSystem.RegisterConsumer([]event.Type{
 		event.TypeListTree,
 		event.TypeCapturePane,
-		event.TypeFetchCurrentWindow,
 	}, tmuxCP)
 	eventSystem.RegisterConsumer([]event.Type{
 		event.TypeListFolders,
@@ -116,10 +114,6 @@ func emitInitialEvents(router *event.Router, prime bool, primeDirs []string) {
 		router.EmitEvent(event.Event{
 			Type: event.TypeListFolders,
 			Data: primeDirs,
-		})
-	} else {
-		router.EmitEvent(event.Event{
-			Type: event.TypeFetchCurrentWindow,
 		})
 	}
 }
