@@ -224,6 +224,7 @@ func (vt *VisualizeTree) markSelectedEntities() {
 				vt.firstSelectedWindowIdx = orderIdx
 			}
 
+			orderIdx += len(session.FilteredChildren) - 1
 			for windowIdx := range session.FilteredChildren {
 				if orderIdx == vt.selectedIdx {
 					vt.selectedSession = &vt.tree[sessionIdx]
@@ -232,8 +233,10 @@ func (vt *VisualizeTree) markSelectedEntities() {
 					return
 				}
 
-				orderIdx++
+				orderIdx--
 			}
+
+			orderIdx += len(session.FilteredChildren) + 1
 		}
 
 		if orderIdx == vt.selectedIdx {

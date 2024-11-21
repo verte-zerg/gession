@@ -214,14 +214,16 @@ func (p Printer) generateWindowsRepresentation(
 ) []string {
 	lines := make([]string, 0)
 
-	for windowOrderIdx, window := range windows {
+	for windowOrderIdx := len(windows) - 1; windowOrderIdx >= 0; windowOrderIdx-- {
 		if orderIdx >= displayFrom && orderIdx < displayTo {
 			var line string
+
+			window := windows[windowOrderIdx]
 
 			subTreeChar := "├─"
 
 			// if it's last window in session
-			if windowOrderIdx == 0 {
+			if windowOrderIdx == len(windows)-1 {
 				subTreeChar = "└─"
 			}
 
