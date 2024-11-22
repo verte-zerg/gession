@@ -71,8 +71,8 @@ bind o run-shell "tmux neww path/to/gession -d /path/to/directory"
 bind p run-shell "tmux neww path/to/gession --prime --pd /path/to/projects --pd /path/to/other/projects"
 ```
 
-By default, `go install` installs binaries in the $GOPATH/bin directory.
-$GOPATH by default points to $HOME/go on Unix and %USERPROFILE%\go on Windows.
+By default, `go install` installs binaries in the `$GOPATH/bin` directory.
+`$GOPATH` by default points to `$home/go` on Unix and `%USERPROFILE%\go` on Windows.
 
 To avoid the need to specify the full path to the binary, you can move it to a directory in your `$PATH`.
 Add the following line to your shell configuration file (`~/.bashrc`, `~/.zshrc`, `~/.config/fish/config.fish`):
