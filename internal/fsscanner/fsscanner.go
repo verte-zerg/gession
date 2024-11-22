@@ -5,6 +5,7 @@ import (
 	"path"
 	"slices"
 	"sort"
+	"strings"
 
 	"github.com/verte-zerg/gession/internal/event"
 	"github.com/verte-zerg/gession/internal/session"
@@ -95,9 +96,11 @@ func listFolder(folder string) []string {
 func convertFolderToSession(folderPath string) *session.Session {
 	dirname := path.Base(folderPath)
 
+	normalizedDirname := strings.ReplaceAll(dirname, ".", "_")
+
 	return &session.Session{
 		ID:        "notexisted_" + dirname,
-		Name:      dirname,
+		Name:      normalizedDirname,
 		Directory: folderPath,
 	}
 }
