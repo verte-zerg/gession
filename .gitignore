@@ -1,1 +1,7 @@
-gession
+.aider*
+
+# Experimental
+cmd/exp
+
+# Binary
+*.out
