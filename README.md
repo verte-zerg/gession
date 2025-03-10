@@ -48,6 +48,15 @@ Run it with the following command:
 ./gession
 ```
 
+### Legacy CLI Mode
+
+For environments where tmux control mode isn't available or when something went wrong, use the `--legacy` flag to use classic tmux CLI commands for interacting with tmux:
+
+
+```sh
+./gession --legacy
+```
+
 ### Prime Mode (inspired by [primeagen](https://github.com/theprimeagen))
 
 The `--prime` mode allows you to list directories instead of tmux sessions. This is useful for quickly creating sessions based on project directories.
